@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+    h1,
+    h2,
+    h3,
+    h4 {
+        @apply font-bold;
+    }
+}
+
 @layer components {
     .icon {
         @apply text-default-text text-xl;
