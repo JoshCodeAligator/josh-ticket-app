@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 @layer components {
-    .icons {
+    .icon {
         @apply text-default-text text-xl;
     }
     .btn {
