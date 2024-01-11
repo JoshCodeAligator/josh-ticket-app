@@ -17,7 +17,9 @@ const formatTimestamp = (timestamp) => {
 
     const date = new Date(timestamp)
     const formattedDate = date.toLocaleDateString("en-US", options)
-}
+
+    return formattedDate
+};
 
   return (
     <div className="flex flex-col bg-card hover:bg-card-hover rounded-md shadow-lg p-3 m-2">
@@ -34,7 +36,7 @@ const formatTimestamp = (timestamp) => {
       <div className="flex-grow"></div>
       <div className="flex mt-2">
         <div className="flex flex-col">
-          <p className="text-xs my-1">{ticket.createdAt}</p>
+          <p className="text-xs my-1">{formatTimestamp(ticket.createdAt)}</p>
           <ProgressDisplay progress={ticket.progress} />
         </div>
         <div className="ml-auto flex items-end">
