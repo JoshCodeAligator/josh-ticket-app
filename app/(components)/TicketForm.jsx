@@ -3,10 +3,9 @@
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
-const TicketForm = ({ticket}) => {
-
-const EDITMODE = ticket._id === "new" ? false : true
-const router = useRouter()  
+const TicketForm = ({ ticket }) => {
+  const EDITMODE = ticket._id === "new" ? false : true;
+  const router = useRouter();
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -18,21 +17,33 @@ const router = useRouter()
     }));
   };
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await fetch("/api/Tickets", {
-        method: "POST",
-        body: JSON.stringify({formData}),
-        "content-type": "application/json"
-    })
+    
+    if (EDITMODE) {
+      const res = await fetch(`/api/Tickets/${ticket._id}`, {
+        method: "PUT",
+        body: JSON.stringify({ formData }),
+        "content-type": "application/json",
+      });
 
-    if(!res.ok) {
-        throw new Error("Failed to create Ticket.")
+      if (!res.ok) {
+        throw new Error("Failed to Update Ticket.");
+      }
+    } else {
+      const res = await fetch("/api/Tickets", {
+        method: "POST",
+        body: JSON.stringify({ formData }),
+        "content-type": "application/json",
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to create Ticket.");
+      }
     }
 
-    router.refresh()
-    router.push("/")
+    router.refresh();
+    router.push("/");
   };
   const startingTicketData = {
     title: "",
@@ -43,13 +54,13 @@ const router = useRouter()
     category: "Hardware Problem",
   };
 
-  if(EDITMODE) {
-    startingTicketData["title"] = ticket.title
-    startingTicketData["description"] = ticket.description
-    startingTicketData["priority"] = ticket.priority   
-    startingTicketData["progress"] = ticket.progress
-    startingTicketData["status"] = ticket.status
-    startingTicketData["category"] = ticket.category          
+  if (EDITMODE) {
+    startingTicketData["title"] = ticket.title;
+    startingTicketData["description"] = ticket.description;
+    startingTicketData["priority"] = ticket.priority;
+    startingTicketData["progress"] = ticket.progress;
+    startingTicketData["status"] = ticket.status;
+    startingTicketData["category"] = ticket.category;
   }
 
   const [formData, setFormData] = useState(startingTicketData);
@@ -139,7 +150,11 @@ const router = useRouter()
           <option value="started">Started</option>
           <option value="done">Done</option>
         </select>
-        <input type="submit" className="btn" value="Create Ticket" />
+        <input
+          type="submit"
+          className="btn"
+          value={EDITMODE ? "Update Ticket" : "Create Ticket"}
+        />
       </form>
     </div>
   );
