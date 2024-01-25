@@ -11,7 +11,7 @@ const DeleteBlock = ({ id }) => {
     const res = await fetch(`http://localhost:3000/api/Tickets/${id}`, {
       method: "DELETE",
     });
-    if(res.ok) {
+    if(!res.ok) {
         router.refresh();
     }
   };

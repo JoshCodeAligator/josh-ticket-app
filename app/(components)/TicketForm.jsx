@@ -24,7 +24,7 @@ const TicketForm = ({ ticket }) => {
       const res = await fetch(`/api/Tickets/${ticket._id}`, {
         method: "PUT",
         body: JSON.stringify({ formData }),
-        "content-type": "application/json",
+        "Content-type": "application/json",
       });
 
       if (!res.ok) {
@@ -34,14 +34,14 @@ const TicketForm = ({ ticket }) => {
       const res = await fetch("/api/Tickets", {
         method: "POST",
         body: JSON.stringify({ formData }),
-        "content-type": "application/json",
+        "Content-type": "application/json",
       });
 
       if (!res.ok) {
         throw new Error("Failed to create Ticket.");
       }
     }
-
+    
     router.refresh();
     router.push("/");
   };
