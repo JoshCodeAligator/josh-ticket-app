@@ -30,7 +30,7 @@ const Dashboard = async () => {
                 {tickets
                   .filter((ticket) => ticket.category === uniqueCategory)
                   .map((filteredTicket, _index) => (
-                    <TicketCard id={_index} key={_index} ticket={filteredTicket} />
+                    <TicketCard id={filteredTicket.id} key={filteredTicket.id} ticket={filteredTicket} />
                   ))}
               </div>
             </div>
